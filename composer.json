@@ -1,5 +1,5 @@
 {
-    "name": "john/collection",
+    "name": "geordiejackson/collection",
     "description": "A simple collection",
     "type": "project",
     "require-dev": {
@@ -9,7 +9,7 @@
     "authors": [
         {
             "name": "John Jackson",
-            "email": "admin@ace-webdesign.co.uk"
+            "email": "geordie@johnjackson.me.uk"
         }
     ],
     "require": {},
