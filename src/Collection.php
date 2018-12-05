@@ -107,6 +107,22 @@
             return $this;
         }
     
+        /**
+         * @return \GeordieJackson\Collection\Collection
+         */
+        public function keys() : Collection
+        {
+            return static::make(array_keys($this->items));
+        }
+    
+        /**
+         * @return \GeordieJackson\Collection\Collection
+         */
+        public function values() : Collection
+        {
+            return static::make(array_values($this->items));
+        }
+    
     
         /**
          *  --------------  Set up the array-like behaviours  -----------------
