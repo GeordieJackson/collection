@@ -37,7 +37,7 @@
          * @param $items
          * @return \GeordieJackson\Collection\Collection
          */
-        public static function make($items)
+        public static function make($items) : Collection
         {
             return new static($items);
         }
@@ -67,7 +67,7 @@
          * @param callable $callback
          * @return $this
          */
-        public function each(callable $callback)
+        public function each(callable $callback) : Collection
         {
             foreach ($this->items as $key => $item) {
                 if ($callback($item, $key) === false) {
@@ -82,7 +82,7 @@
          * @param $callback
          * @return \GeordieJackson\Collection\Collection
          */
-        public function map(callable $callback)
+        public function map(callable $callback) : Collection
         {
             return static::make(array_map($callback, $this->items));
         }
@@ -91,7 +91,7 @@
          * @param $callback
          * @return \GeordieJackson\Collection\Classes\Collection
          */
-        public function filter(callable $callback)
+        public function filter(callable $callback) : Collection
         {
             return static::make(array_filter($this->items, $callback));
         }
@@ -100,7 +100,7 @@
          * @param callable $callback
          * @return $this
          */
-        public function transform(callable $callback)
+        public function transform(callable $callback) : Collection
         {
             $this->items = $this->map($callback)->all();
         

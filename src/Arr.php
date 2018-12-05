@@ -3,14 +3,15 @@
     namespace GeordieJackson\Collection;
     
     use ArrayAccess;
-    
+    use phpDocumentor\Reflection\Types\Boolean;
+
     class Arr
     {
         /**
          * @param $value
          * @return bool
          */
-        public static function accessible($value)
+        public static function accessible($value) : bool
         {
             return is_array($value) || $value instanceof ArrayAccess;
         }
@@ -23,7 +24,7 @@
          * @param  mixed   $value
          * @return array
          */
-        public static function add($array, $key, $value)
+        public static function add($array, $key, $value) : array
         {
             if (is_null(static::get($array, $key))) {
                 static::set($array, $key, $value);
@@ -38,7 +39,7 @@
          * @param  array  $array
          * @return array
          */
-        public static function divide($array)
+        public static function divide($array) : array
         {
             return [array_keys($array), array_values($array)];
         }
@@ -50,7 +51,7 @@
          * @param  string  $prepend
          * @return array
          */
-        public static function dot($array, $prepend = '')
+        public static function dot($array, $prepend = '') : array
         {
             $results = [];
         
@@ -82,7 +83,7 @@
          * @param $array
          * @return array
          */
-        public static function collapse($array)
+        public static function collapse($array) : array
         {
             $results = [];
             
@@ -104,7 +105,7 @@
          * @param $depth
          * @return array
          */
-        public static function flatten($array, $depth = INF)
+        public static function flatten($array, $depth = INF) : array
         {
             $result = [];
         
@@ -167,7 +168,7 @@
          * @param  string|int  $key
          * @return bool
          */
-        public static function exists($array, $key)
+        public static function exists($array, $key) : bool
         {
             if ($array instanceof ArrayAccess) {
                 return $array->offsetExists($key);
@@ -186,7 +187,7 @@
          * @param  mixed   $value
          * @return array
          */
-        public static function set(&$array, $key, $value)
+        public static function set(&$array, $key, $value) : array
         {
             if (is_null($key)) {
                 return $array = $value;
@@ -196,10 +197,7 @@
         
             while (count($keys) > 1) {
                 $key = array_shift($keys);
-            
-                // If the key doesn't exist at this depth, we will just create an empty array
-                // to hold the next value, allowing us to create the arrays to hold final
-                // values at the correct depth. Then we'll keep digging into the array.
+                
                 if (! isset($array[$key]) || ! is_array($array[$key])) {
                     $array[$key] = [];
                 }

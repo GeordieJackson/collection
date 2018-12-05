@@ -20,6 +20,7 @@
         public function is_value_array_accessible()
         {
             $this->assertTrue(Arr::accessible([1,2,3]));
+            $this->assertTrue(is_bool(Arr::accessible([1,2,3])));
             $this->assertTrue(Arr::accessible([]));
             $this->assertTrue(Arr::accessible(new Collection([])));
             
