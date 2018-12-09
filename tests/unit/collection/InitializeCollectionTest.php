@@ -1,5 +1,7 @@
 <?php
     
+    namespace GeordieJackson\Collection\Tests\Collection;
+    
     use GeordieJackson\Collection\Collection;
     
     class InitializeCollectionTest extends \Codeception\Test\Unit
@@ -45,6 +47,17 @@
         /**
         * @test
         */
+        public function collect_helper_returns_a_collection_instance()
+        {
+            $collection = collect($this->array);
+    
+            $this->assertInstanceOf(Collection::class, $collection);
+            $this->assertContains('Billy', $collection->toArray());
+        }
+        
+        /**
+        * @test
+        */
         public function collection_is_countable()
         {
             $collection = Collection::make($this->array);
@@ -74,6 +87,14 @@
             $collection = Collection::make($this->array);
             
             $this->assertTrue(is_iterable($collection));
+        }
+        
+        /**
+        * @test
+        */
+        public function the_collect_helper_method_works()
+        {
+            $this->assertInstanceOf(Collection::class, collect([]));
         }
         
         protected function _after()

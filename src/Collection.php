@@ -2,6 +2,7 @@
     
     namespace GeordieJackson\Collection;
 
+    use stdClass;
     use Countable;
     use ArrayAccess;
     use ArrayIterator;
@@ -64,6 +65,27 @@
         }
     
         /**
+         * @param      $key
+         * @param null $operator
+         * @param null $value
+         * @return bool
+         */
+        public function contains($key, $operator = null, $value = null)
+        {
+            if (func_num_args() === 1) {
+                if ($this->useAsCallable($key)) {
+                    $placeholder = new stdClass;
+                
+                    return $this->first($key, $placeholder) !== $placeholder;
+                }
+            
+                return in_array($key, $this->items);
+            }
+        
+            return $this->contains($this->operatorForWhere(...func_get_args()));
+        }
+    
+        /**
          * @param callable $callback
          * @return $this
          */
@@ -76,6 +98,16 @@
             }
         
             return $this;
+        }
+    
+        /**
+         * @param callable|null $callback
+         * @param null          $default
+         * @return mixed
+         */
+        public function first(callable $callback = null, $default = null)
+        {
+            return Arr::first($this->items, $callback, $default);
         }
     
         /**
@@ -181,5 +213,61 @@
         public function getIterator()
         {
             return new ArrayIterator($this->items);
+        }
+    
+        /**
+         * @param      $key
+         * @param null $operator
+         * @param null $value
+         * @return \Closure
+         */
+        protected function operatorForWhere($key, $operator = null, $value = null)
+        {
+            if (func_num_args() === 1) {
+                $value = true;
+            
+                $operator = '=';
+            }
+        
+            if (func_num_args() === 2) {
+                $value = $operator;
+            
+                $operator = '=';
+            }
+        
+            return function ($item) use ($key, $operator, $value) {
+                $retrieved = data_get($item, $key);
+            
+                $strings = array_filter([$retrieved, $value], function ($value) {
+                    return is_string($value) || (is_object($value) && method_exists($value, '__toString'));
+                });
+            
+                if (count($strings) < 2 && count(array_filter([$retrieved, $value], 'is_object')) == 1) {
+                    return in_array($operator, ['!=', '<>', '!==']);
+                }
+            
+                switch ($operator) {
+                    default:
+                    case '=':
+                    case '==':  return $retrieved == $value;
+                    case '!=':
+                    case '<>':  return $retrieved != $value;
+                    case '<':   return $retrieved < $value;
+                    case '>':   return $retrieved > $value;
+                    case '<=':  return $retrieved <= $value;
+                    case '>=':  return $retrieved >= $value;
+                    case '===': return $retrieved === $value;
+                    case '!==': return $retrieved !== $value;
+                }
+            };
+        }
+    
+        /**
+         * @param $value
+         * @return bool
+         */
+        protected function useAsCallable($value)
+        {
+            return ! is_string($value) && is_callable($value);
         }
     }

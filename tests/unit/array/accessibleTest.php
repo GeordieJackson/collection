@@ -1,5 +1,8 @@
 <?php
     
+    namespace GeordieJackson\Collection\Tests\Arr;
+    
+    use stdClass;
     use GeordieJackson\Collection\Arr;
     use GeordieJackson\Collection\Collection;
     

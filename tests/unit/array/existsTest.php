@@ -1,5 +1,7 @@
 <?php
     
+    namespace GeordieJackson\Collection\Tests\Arr;
+    
     use GeordieJackson\Collection\Arr;
     
     class existsTest extends \Codeception\Test\Unit

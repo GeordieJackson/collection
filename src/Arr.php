@@ -178,6 +178,33 @@
         }
     
         /**
+         * @param               $array
+         * @param callable|null $callback
+         * @param null          $default
+         * @return mixed
+         */
+        public static function first($array, callable $callback = null, $default = null)
+        {
+            if (is_null($callback)) {
+                if (empty($array)) {
+                    return value($default);
+                }
+            
+                foreach ($array as $item) {
+                    return $item;
+                }
+            }
+        
+            foreach ($array as $key => $value) {
+                if (call_user_func($callback, $value, $key)) {
+                    return $value;
+                }
+            }
+        
+            return value($default);
+        }
+    
+        /**
          * Set an array item to a given value using "dot" notation.
          *
          * If no key is given to the method, the entire array will be replaced.

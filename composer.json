@@ -1,6 +1,6 @@
 {
     "name": "geordiejackson/collection",
-    "description": "A simple collection",
+    "description": "Simple collection - for small projects",
     "type": "project",
     "require-dev": {
         "codeception/codeception": "^2.5"

@@ -1,5 +1,7 @@
 <?php
     
+    namespace GeordieJackson\Collection\Tests\Collection;
+    
     use GeordieJackson\Collection\Collection;
     
     class MethodsTest extends \Codeception\Test\Unit
