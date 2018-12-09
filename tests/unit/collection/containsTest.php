@@ -39,7 +39,7 @@
         public function it_can_match_on_key_value_pairs_with_comparison_operator()
         {
             $collection = collect([
-                ['product' => 'Desk', 'price' => 200],
+                ['product' => 'Desk', 'price' => '200'],
                 ['product' => 'Chair', 'price' => 100],
             ]);
             
