@@ -1,18 +1,18 @@
 {
-    "name": "geordiejackson/collection",
-    "description": "Simple collection - for small projects",
-    "type": "project",
-    "require-dev": {
-        "codeception/codeception": "^2.5"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "John Jackson",
-            "email": "geordie@johnjackson.me.uk"
-        }
-    ],
-    "require": {},
+	"name": "geordiejackson/collection",
+	"description": "Simple collection - for small projects",
+	"type": "project",
+	"require-dev": {
+		"codeception/codeception": "^2.5"
+	},
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "John Jackson",
+			"email": "geordie@johnjackson.me.uk"
+		}
+	],
+	"require": {},
 	"autoload": {
 		"psr-4": {
 			"GeordieJackson\\Collection\\": "src/"
@@ -20,5 +20,10 @@
 		"files": [
 			"src/helpers.php"
 		]
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"GeordieJackson\\Collection\\Tests\\": "tests/"
+		}
 	}
 }
